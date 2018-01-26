@@ -1,0 +1,47 @@
+#! /bin/sh
+exec ruby -S -x "$0" "$@"
+#! ruby
+
+require 'bundler/setup'
+Bundler.require
+require 'active_support'
+require 'active_support/inflector'
+require 'active_support/core_ext'
+require 'highline/import'
+
+require 'csv'
+require 'nkf'
+require 'date'
+
+
+class App
+  def self.root
+    File.dirname(__FILE__)
+  end
+end
+
+# initializer
+Dir.glob("#{App.root}/config/initializer/*.rb").each do |require_path|
+  require require_path
+end
+
+# app load
+Dir.glob("#{App.root}/app/**/*.rb") do |require_path|
+  require require_path
+end
+
+# CsvImporter
+#   VisaCsvImporter
+#     def self.csv_dir
+#     def self.import
+#   UfjCsvImporter
+# Analyzer
+#   def monthly
+#   def month
+#   def group_name_monthly
+#   def group_name
+
+tp.set :multibyte, true
+
+analyzer = Analyzer.new(CsvImporter.import(ARGV[0]))
+tp analyzer.month(Date.parse(ARGV[1]))

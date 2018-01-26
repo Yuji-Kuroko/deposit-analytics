@@ -1,0 +1,3 @@
+class UfjCsvImporter
+
+end
